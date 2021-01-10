@@ -1,11 +1,11 @@
 # BCsc Tutorial
 Supporting material for the manuscript: 
-Bray Curtis for single cell RNAseq data mining (BCsc).
+Bray Curtis for single cell RNAseq data integration (BCsc).
 PIacenti G, Alessandri L, Cordero F, Beccuti M, and Calogero RA
 
 # Introduction
 
-This vignette provides support to use SBray Curtis for single cell RNAseq data mining (BCsc).
+This vignette provides support to use Bray Curtis for single cell RNAseq data integration (BCsc).
 BCsc analysis was added as extention of [*rCASC*](https://pubmed.ncbi.nlm.nih.gov/31494672/).
 
 
