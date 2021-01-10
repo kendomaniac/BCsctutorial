@@ -334,7 +334,7 @@ include_graphics('./img/fig8.png')
 ```
 
 
-In Fig. \ref{fig:fig.8}, hierachical clustering of BC distance suggest that BC is capturing similarity between the analyzed cell sets, even if part of the information is lost. This is however, not sufficient to say that BC is a good metric to detect common sub-populations of cells in different experiments.
+In Fig. \ref{fig:fig.8}, hierarchical clustering of BC distance suggest that BC is capturing similarity between the analyzed cell sets, even if part of the information is lost. This is however, not sufficient to say that BC is a good metric to detect common sub-populations of cells in different experiments.
 
 
 \newpage
