@@ -39,7 +39,7 @@
       <ul class="nav navbar-nav">
 <li>
   <a href="../index.html">
-    <span class="fas fa fas fa-home fa-lg"></span>
+    <span class="fas fa-home fa-lg"></span>
      
   </a>
 </li>
@@ -75,7 +75,7 @@
       <h1 data-toc-skip>BCsc vignette</h1>
                         <h4 class="author">Raffaele A Calogero</h4>
             
-            <h4 class="date">12/16/2020</h4>
+            <h4 class="date">10/01/2021</h4>
       
       
       <div class="hidden name"><code>BCscvignette.Rmd</code></div>
@@ -87,31 +87,109 @@
 
 <div id="section-1-introduction" class="section level2">
 <h2 class="hasAnchor">
-<a href="#section-1-introduction" class="anchor"></a>Section 1: Introduction</h2>
+<a href="#section-1-introduction" class="anchor"></a><strong>Section 1</strong>: Introduction</h2>
+<div id="section-1-1-single-cell-rnaseq-platforms" class="section level3">
+<h3 class="hasAnchor">
+<a href="#section-1-1-single-cell-rnaseq-platforms" class="anchor"></a>Section 1.1: single-cell RNAseq platforms</h3>
+<div id="section-1-1-1-smart-seq-based-scrnaseq" class="section level4">
+<h4 class="hasAnchor">
+<a href="#section-1-1-1-smart-seq-based-scrnaseq" class="anchor"></a>Section 1.1.1: Smart-seq based scRNAseq</h4>
+</div>
+<div id="section-1-1-2-droplet-scrnaseq" class="section level4">
+<h4 class="hasAnchor">
+<a href="#section-1-1-2-droplet-scrnaseq" class="anchor"></a>Section 1.1.2: droplet scRNAseq</h4>
+</div>
+<div id="section-1-1-3-splitseq-scrnaseq" class="section level4">
+<h4 class="hasAnchor">
+<a href="#section-1-1-3-splitseq-scrnaseq" class="anchor"></a>Section 1.1.3: splitseq scRNAseq</h4>
+</div>
+<div id="section-1-1-4-spatial-transcriptomics-scrnaseq" class="section level4">
+<h4 class="hasAnchor">
+<a href="#section-1-1-4-spatial-transcriptomics-scrnaseq" class="anchor"></a>Section 1.1.4: Spatial transcriptomics scRNAseq</h4>
+</div>
+</div>
+<div id="section-1-2-rcasc-single-cell-rnaseq-data-analysis-suite" class="section level3">
+<h3 class="hasAnchor">
+<a href="#section-1-2-rcasc-single-cell-rnaseq-data-analysis-suite" class="anchor"></a>Section 1.2: rCASC, single-cell RNAseq data analysis suite</h3>
+</div>
+<div id="section-1-2-1-scrnaseq-qc" class="section level3">
+<h3 class="hasAnchor">
+<a href="#section-1-2-1-scrnaseq-qc" class="anchor"></a>Section 1.2.1: scRNAseq QC</h3>
+<div id="section-1-2-2-scrnaseq-genes-filtering" class="section level4">
+<h4 class="hasAnchor">
+<a href="#section-1-2-2-scrnaseq-genes-filtering" class="anchor"></a>Section 1.2.2: scRNAseq genes filtering</h4>
+</div>
+<div id="section-1-2-3-scrnaseq-clustering-methods" class="section level4">
+<h4 class="hasAnchor">
+<a href="#section-1-2-3-scrnaseq-clustering-methods" class="anchor"></a>Section 1.2.3: scRNAseq clustering methods</h4>
+</div>
+<div id="section-1-2-4-scrnaseq-cluster-specific-genes-selection" class="section level4">
+<h4 class="hasAnchor">
+<a href="#section-1-2-4-scrnaseq-cluster-specific-genes-selection" class="anchor"></a>Section 1.2.4: scRNAseq cluster-specific genes selection</h4>
+</div>
+<div id="section-1-2-5-topgo-bioconductor-package" class="section level4">
+<h4 class="hasAnchor">
+<a href="#section-1-2-5-topgo-bioconductor-package" class="anchor"></a>Section 1.2.5: topGO bioconductor package</h4>
+</div>
+<div id="section-1-3-bray-curtis-community-ecology-metric-" class="section level4">
+<h4 class="hasAnchor">
+<a href="#section-1-3-bray-curtis-community-ecology-metric-" class="anchor"></a>Section 1.3: Bray Curtis community ecology metric.</h4>
+<p>Bray Curtis metric [<a href="https://en.wikipedia.org/wiki/Bray%E2%80%93Curtis_dissimilarity"><em>Bray and Curtis 1957</em></a>] is a statistic used to quantify the compositional dissimilarity between two different sites, based on counts at each site. As defined by Bray and Curtis, the index of dissimilarity is:</p>
+<pre><code>## Warning: package 'knitr' was built under R version 3.6.2</code></pre>
+<div class="figure" style="text-align: center">
+<img src="img/fig10.png" alt="Bray Curtis formula." width="100%"><p class="caption">
+Bray Curtis formula.
+</p>
+</div>
+<p>Where C<sub>ij</sub> is the sum of the lesser values for only those species in common between both sites. S<sub>i</sub> and S<sub>j</sub> are the total number of specimens counted at both sites. The index can be simplified to 1-2C/2 = 1-C when the abundances at each site are expressed as proportions, though the two forms of the equation only produce matching results when the total number of specimens counted at both sites are the same.</p>
+<p>The Bray-Curtis dissimilarity is always a number between 0 and 1. If 0, the two sites share all the same species; if 1, they don’t share any species.</p>
+<p>To calculate the Bray-Curtis dissimilarity between two sites it is assumed that both sites are the same size, either in area or volume (as is relevant to species counts). This is because the equation does not include any notion of space; it works only with the counts themselves. If the two sites are not the same size, it is necessary to adjust counts before doing the Bray-Curtis calculation.</p>
+<p>BC is fequently used in microbiome characterization to represent the dissimilarity between pairs of samples [<a href="https://pubmed.ncbi.nlm.nih.gov/26380076/"><em>Larsen and Dai 2015</em></a>].</p>
+<p>Example of the use of BC [<a href="https://www.statisticshowto.com/bray-curtis-dissimilarity/"><em>Glen in www.statisticshowto.com</em></a>] Lets, consider two aquariums;</p>
+<pre><code>- Tank one: 6 goldfish, 7 guppies and 4 rainbow fish,
+- Tank two: 10 goldfish and 6 rainbow fish.</code></pre>
+<p>To calculate Bray-Curtis, let’s first calculate C<sub>ij</sub> (the sum of only the lesser counts for each species found in both sites). Goldfish are found on both sites; the lesser count is 6. Guppies are only on one site, so they can’t be added in here. Rainbow fish, though, are on both, and the lesser count is 4. So C<sub>ij</sub> = 6 + 4 = 10.</p>
+<p>S<sub>i</sub> ( total number of specimens counted on site i) = 6 + 7 + 4 = 17, and S<sub>j</sub> (total number of specimens counted on site j) = 10 + 6 = 16.</p>
+<p>So our BC<sub>ij</sub> = 1 – (2 * 10) / (17 + 16), or 0.39.</p>
+</div>
+</div>
+<div id="section-1-4-aim-of-the-thesis-" class="section level3">
+<h3 class="hasAnchor">
+<a href="#section-1-4-aim-of-the-thesis-" class="anchor"></a>Section 1.4: Aim of the thesis.</h3>
+<p>scRNAseq is a very powerful technology, which however has still some critical points due to the high noise of the technology. A very important point, within the concept of reproducibility, is the ability to associate common clusters in independent experiments, e.g. biological replicates of the same experiment or scRNAseq from different patients with the same disease. In this thesis, I will evaluate the possibility to use Bray Curtis community ecology metric to identify common clusters in independent experiments.</p>
+<div style="page-break-after: always;"></div>
+</div>
 </div>
 <div id="section-2-methods" class="section level2">
 <h2 class="hasAnchor">
 <a href="#section-2-methods" class="anchor"></a><strong>Section 2</strong>: Methods</h2>
-<p>All the methods and analyses described in this thesis were done using R and the Bray Curtis metrics (BCsc) for single cell data analysis was controlled by an rCASC function. All software fro BCsc metrics was implemented in a docker container deposited at repbioinfo repository at docker hub. All calculated data are available as <a href="https://figshare.com/account/home#/projects/94457">figshare project</a>.</p>
+<p>All the methods and analyses described in this thesis were generated using R. The Bray Curtis metrics (BCsc) for single cell data analysis was implemented within rCASC suite. All software for BCsc metrics was implemented in a docker container deposited at repbioinfo repository at docker hub. All calculated data are available as <a href="https://figshare.com/account/home#/projects/94457"><em>figshare project</em></a>.</p>
 <div id="section-2-1-datasets" class="section level3">
 <h3 class="hasAnchor">
 <a href="#section-2-1-datasets" class="anchor"></a><strong>Section 2.1</strong>: Datasets</h3>
-<div id="section-2-1-1-seta-and-setc" class="section level4">
+<div id="section-2-1-1-seta-setb-and-setc" class="section level4">
 <h4 class="hasAnchor">
-<a href="#section-2-1-1-seta-and-setc" class="anchor"></a><strong>Section 2.1.1</strong>: SetA and setC</h4>
-<p>SetA and C were prepared to validate rCASC <a href="https://pubmed.ncbi.nlm.nih.gov/31494672/"><em>Alessandri et al. 2019</em></a>. These datasets were generated combining different cell types from Zheng paper <a href="https://pubmed.ncbi.nlm.nih.gov/28091601/"><em>Zheng et al. 2017</em></a>:</p>
+<a href="#section-2-1-1-seta-setb-and-setc" class="anchor"></a><strong>Section 2.1.1</strong>: SetA, SetB and setC</h4>
+<p>SetA, B and C were prepared to validate rCASC [<a href="https://pubmed.ncbi.nlm.nih.gov/31494672/"><em>Alessandri et al. 2019</em></a>]. These datasets were generated combining different cell types from Zheng paper [<a href="https://pubmed.ncbi.nlm.nih.gov/28091601/"><em>Zheng et al. 2017</em></a>]:</p>
 <ul>
 <li>setA 100 cells randomly selected for each cell type:
 <ul>
 <li><ol start="2" style="list-style-type: upper-alpha">
-<li>B-cells , (M) Monocytes (100K reads/cell), (S) Hematopoietic stem cells , (NK) Natural Killer cells , (N) Naive T-cells</li>
+<li>B-cells, (M) Monocytes (100K reads/cell), (S) Hematopoietic stem cells, (NK) Natural Killer cells, (N) Naive T-cells</li>
+</ol></li>
+</ul>
+</li>
+<li>setB 100 cells randomly selected for each cell type:
+<ul>
+<li><ol start="2" style="list-style-type: upper-alpha">
+<li>B-cells, (M) Monocytes (100K reads/cell), (T) T-helper cells, (NK) Natural Killer cells, (N) Naive T-cells</li>
 </ol></li>
 </ul>
 </li>
 <li>setC 100 cells randomly selected for each cell type:
 <ul>
-<li><ol start="3" style="list-style-type: upper-alpha">
-<li>Cytotoxic T-cells , (M) Monocytes, (T) T-helper cells, (NK) Natural Killer, (N) Naive T-cells</li>
+<li><ol start="13" style="list-style-type: upper-alpha">
+<li>Monocytes, (T) T-helper cells, (NK) Natural Killer, (S) Hematopoietic stem cells</li>
 </ol></li>
 </ul>
 </li>
@@ -121,17 +199,18 @@
 <h4 class="hasAnchor">
 <a href="#section-2-1-2-contaminated-set-setac30" class="anchor"></a><strong>Section 2.1.2</strong>: Contaminated set: setAc30</h4>
 <p>We constructed a contaminated dataset in which a fraction of genes from setA were substituted with a random set of counts, 30%, from setC, i.e.setAc30. In figure , it shown the co-clustering of setA and setAc30.</p>
-<pre><code>## Warning: package 'knitr' was built under R version 3.6.2</code></pre>
 <div class="figure" style="text-align: center">
 <img src="img/fig1.png" alt="Co-clustering of setA and setAc30. A) clusters generated by seurat. B) setA and setAc30 cells" width="80%"><p class="caption">
 Co-clustering of setA and setAc30. A) clusters generated by seurat. B) setA and setAc30 cells
 </p>
 </div>
+<div style="page-break-after: always;"></div>
 </div>
 <div id="section-2-1-3-set1-and-set2" class="section level4">
 <h4 class="hasAnchor">
 <a href="#section-2-1-3-set1-and-set2" class="anchor"></a><strong>Section 2.1.3</strong>: Set1 and set2</h4>
-<p>Datasets 1 and 2 were derived from two PBMC datasets available at 10XGenomics repository. Set1 was generated using version 3.1 chemistry as instead set2 with version 3.0 chemistry. Both datasets included antibodies labeling. Starting from these datasets we constructed set1 and 2, using the following cells:</p>
+<p>Datasets 1 and 2 were derived from two PBMC datasets available at 10XGenomics repository. Set1 was generated usingNextGEM chemistry as instead set2 with version 3.0 chemistry.</p>
+<p>Both datasets included antibodies labeling. Starting from these datasets we constructed set1 and 2, using the following cells:</p>
 <ul>
 <li>CD14+CD16- (Monocytes, M), CD56+CD34- (Natural Killer, NK), CD4+CD25+CD127- (T regulatory, TR), CD4+CD45RO+ccr7+ (T memory, TM), CD19+CD20+ (B cell, B), cd8+cd45ra+ccr7+ (naive T, N)</li>
 </ul>
@@ -144,37 +223,92 @@ Co-clustering of setA and setAc30. A) clusters generated by seurat. B) setA and 
 <div id="section-3-results" class="section level2">
 <h2 class="hasAnchor">
 <a href="#section-3-results" class="anchor"></a><strong>Section 3</strong>: Results</h2>
-<div id="section-3-1-creation-of-the-contaminated-dataset-setac30" class="section level3">
+<div id="section-3-1-evaluating-bc-metrics-efficacy-as-cluster-association-tool-by-mean-of-cluster-specific-go-terms-" class="section level3">
 <h3 class="hasAnchor">
-<a href="#section-3-1-creation-of-the-contaminated-dataset-setac30" class="anchor"></a><strong>Section 3.1</strong>: Creation of the contaminated dataset setAc30</h3>
-<p>We have transformed setA contaminating it with 30% of the setC counts, randomly selected. In brief, descrivere come hai fatto la contaminazione</p>
+<a href="#section-3-1-evaluating-bc-metrics-efficacy-as-cluster-association-tool-by-mean-of-cluster-specific-go-terms-" class="anchor"></a><strong>Section 3.1</strong>: Evaluating BC metrics efficacy, as cluster association tool, by mean of cluster-specific GO terms.</h3>
+<p>In this section we describe the results referring to the hypothesis that cell sub-popuplations (clusters) can be assimilated to microbial communities and cluster-specific enriched GO terms are assimilated to microbial philum. Thus, Bray Curtis (BC) can be used to measure the dissimilarity between any cluster of an experiment and any cluster of the other experiment, to identify those clusters that are in common between different experiments. These data try to define the limits of BC in samples that are relatively similar to each other.</p>
+<p>SetA (500 cells), B (450 cells) and C (440 cells) were independently filtered to keep the 10k most variant genes. The retained genes were further filtered to keep the 5k most expressed genes. This passage was done to remove from each dataset the genes that, being little expressed or uniformly expressed, are going to have limited impact in clusters definition.</p>
+<p>Each dataset was clustered with the clustering tool, within those available in rCASC [<a href="https://pubmed.ncbi.nlm.nih.gov/31494672/"><em>Alessandri et al. 2019</em></a>], providing the best CSS score, which is a measure of cluster stability [<a href="https://pubmed.ncbi.nlm.nih.gov/31494672/"><em>Alessandri et al. 2019</em></a>], Fig. .</p>
+<div class="figure" style="text-align: center">
+<img src="img/fig6.png" alt="rCASC clustering. A) SetA clustered by Griph. B) SetB clustered by SHARP. C) SetC clustered by SHARP. D) Association between clusters in the three datasets. E) Legend for the CSS" width="80%"><p class="caption">
+rCASC clustering. A) SetA clustered by Griph. B) SetB clustered by SHARP. C) SetC clustered by SHARP. D) Association between clusters in the three datasets. E) Legend for the CSS
+</p>
 </div>
-<div id="section-3-2-analysis-of-pbmc_nextgem-and-pbmc_v3_chemistry" class="section level3">
+<p>As shown in Fig. , the three datasets were characterized by high CSS. Only in set B one cluster, 3, is composed mainly by two cell types, N and H cells, Fig. B. This is due to the limited sensitivity of the version 1 chemistry that was used for the generation of the data used in this experiment [<a href="https://pubmed.ncbi.nlm.nih.gov/28091601/"><em>Zheng et al. 2017</em></a>].</p>
+<div style="page-break-after: always;"></div>
+<div id="section-3-1-1-evaluating-bc-metrics-efficacy-as-cluster-association-tool-by-mean-of-cluster-specific-go-terms-on-seta-and-seta-depleted-of-a-5-10-and-15-randomly-selected-genes-" class="section level4">
+<h4 class="hasAnchor">
+<a href="#section-3-1-1-evaluating-bc-metrics-efficacy-as-cluster-association-tool-by-mean-of-cluster-specific-go-terms-on-seta-and-seta-depleted-of-a-5-10-and-15-randomly-selected-genes-" class="anchor"></a><strong>Section 3.1.1</strong>: Evaluating BC metrics efficacy, as cluster association tool, by mean of cluster-specific GO terms on setA and setA depleted of a 5, 10 and 15% randomly selected genes.</h4>
+<p>To estimate the ability of BC metric to associate the same cell sub-types in different experiments, we compared setA with respect of setA in which a random subset of 5%, 10% and 15% of cells were removed. SetA and the depleted datasets were independently clustered using SIMLR, imposing 5 clusters. Each cluster was then described as a population of GO enriched terms, derived from the cluster-specific genes detected by COMET. We present only the results obtained using the biological process GO class, because the molecular function GO class was very ineffective in generating the correct association of the clusters.</p>
+<div class="figure" style="text-align: center">
+<img src="img/fig8.png" alt="SIMLR clustering with k=5. A) Hierarchical clustering of the BC distance between setA and setA depleted of 5\% cells. B) Hierarchical clustering of the BC distance between setA and setA depleted of 10\% cells. C) Hierarchical clustering of the BC distance between setA and setA depleted of 15\% cells" width="80%"><p class="caption">
+SIMLR clustering with k=5. A) Hierarchical clustering of the BC distance between setA and setA depleted of 5% cells. B) Hierarchical clustering of the BC distance between setA and setA depleted of 10% cells. C) Hierarchical clustering of the BC distance between setA and setA depleted of 15% cells
+</p>
+</div>
+<p>In Fig. , hierarchical clustering of BC distance suggests that BC is capturing similarity between the analyzed cell sets, even if part of the information is lost. This is however, not sufficient to say that BC is a good metric to detect common sub-populations of cells in different experiments.</p>
+<p>We extended this analysis generating, starting from setA, two random sets each one with 5% or 10% or 20%, 30, 40% and 50% random removal of genes. Each pair of data with the same percentage of genes removal was filtered to select the top 10k most varying genes. Each dataset was clustered with Griph and COMET was applied to identify cluster-specific genes. GO enrichment was performed and BC was used to associate clusters within the two datasets. This analysis was repeated 100 times. A threshold for BC, &lt; 0.2, was used to define if two clusters are associated to each other.</p>
+<div class="figure" style="text-align: center">
+<img src="img/fig9.png" alt="BC based association between clusters, comparing two set of samples where 50\% of the genes where randomly removed. The assignement of identify between two clusters was done using the lowest BC score below the threshold that was set to 0.2, over 100 permutations. A) SetA with two different set of genes removal. B) setA1 and setA2 with two different set of genes removal." width="60%"><p class="caption">
+BC based association between clusters, comparing two set of samples where 50% of the genes where randomly removed. The assignement of identify between two clusters was done using the lowest BC score below the threshold that was set to 0.2, over 100 permutations. A) SetA with two different set of genes removal. B) setA1 and setA2 with two different set of genes removal.
+</p>
+</div>
+<p>This experiment demonstrated that, even with a large removal of genes, BC was able to associate correctly the clusters, i.e. in the worst case 72 times over 100 permutation, Fig. A.</p>
+<p>The experiment was repeated using the same approach, but on two independent set of cells with the same cell types of setA. In Fig. B only 50% random removal of genes was described since it is the one that most strongly affect the detection efficacy of BC.</p>
+<div style="page-break-after: always;"></div>
+</div>
+<div id="section-3-1-2-testing-bc-metrics-efficacy-as-cluster-association-tool-by-mean-of-cluster-specific-go-terms-searching-common-clusters-between-seta-and-setbc-" class="section level4">
+<h4 class="hasAnchor">
+<a href="#section-3-1-2-testing-bc-metrics-efficacy-as-cluster-association-tool-by-mean-of-cluster-specific-go-terms-searching-common-clusters-between-seta-and-setbc-" class="anchor"></a><strong>Section 3.1.2</strong>: Testing BC metrics efficacy, as cluster association tool, by mean of cluster-specific GO terms searching common clusters between setA and setB/C.</h4>
+<p>We extended the above describe analysis comparing setA, setB and setC, which are coming from the same bulk experiment but are made of different cells and with a different composition of cell types, for their composition see Methods section. Each dataset was analyzed with COMET to identify the subset of genes most characteristic of each cluster. Each of these set of genes was used to search for enriched GO terms using <a href="https://bioconductor.org/packages/release/bioc/html/topGO.html"><em>topGO Bioconductor package</em></a>. Subsequently, we investigated if BC could provide an effecting tool to detect corresponding clusters in different experiment, Fig. .</p>
+<div class="figure" style="text-align: center">
+<img src="img/fig7.png" alt="Measuring cluster to cluster dissimilarity using Bray Curtis metric applied on cluster-specific enriched GO terms." width="50%"><p class="caption">
+Measuring cluster to cluster dissimilarity using Bray Curtis metric applied on cluster-specific enriched GO terms.
+</p>
+</div>
+<p>Looking at the lower values of BC between the clusters in setA and B, Fig.  setA versus setB red values, we correctly assigned the B cells and M cells clusters but we failed in correctly assign the NK cluster in setB. In the case of setA versus setC, S cells and NK cells clusters were correctly associated. Instead setA B cells, which are not included in setC, were incorrectly associated to H cells in setC.</p>
+<p>The results obtained trying to identify cluster to cluster association between different datasets highlight the present of two critical points associated to this approach: i. the idea of detecting clusters relationship starting from the minimal BC value provides only a partial correct association between clusters; ii. in case a cluster is not shared between different samples the BC scoring approach we have used does not support this issue. Furthermore, we have also observed that GO enrichment on cluster-specific genes sometimes produces very short list of GO terms, reducing the ability of BC in measuring correctly the dissimilarity between samples.</p>
+<div style="page-break-after: always;"></div>
+</div>
+<div id="section-3-2-testing-bc-metrics-efficacy-as-cluster-association-tool-by-mean-of-cluster-specific-genes-" class="section level4">
+<h4 class="hasAnchor">
+<a href="#section-3-2-testing-bc-metrics-efficacy-as-cluster-association-tool-by-mean-of-cluster-specific-genes-" class="anchor"></a><strong>Section 3.2</strong>: Testing BC metrics efficacy, as cluster association tool, by mean of cluster-specific genes.</h4>
+<p>In the previous experiments, we observed that GO terms associated to cluster-specific genes, in some cases were very few, thus limiting the strength of BC score in cluster association. Then, we decided to directly use BC score on cluster-specific genes.</p>
+</div>
+<div id="section-3-2-1-creation-of-the-contaminated-dataset-setac30" class="section level4">
+<h4 class="hasAnchor">
+<a href="#section-3-2-1-creation-of-the-contaminated-dataset-setac30" class="anchor"></a><strong>Section 3.2.1</strong>: Creation of the contaminated dataset setAc30</h4>
+<p>We investigated the efficacy of BC score on cluster-specific genes comparing setA with respect to a setA contaminated by randomly selected genes from setC. Specifically, we have transformed setA contaminating it with 30% of the setC counts, randomly selected.</p>
+<p><strong>In brief, descrivere come hai fatto la contaminazione</strong></p>
+<p>**parte ancora da completare</p>
+</div>
+</div>
+<div id="section-3-3-analysis-of-pbmc_nextgem-and-pbmc_v3_chemistry" class="section level3">
 <h3 class="hasAnchor">
-<a href="#section-3-2-analysis-of-pbmc_nextgem-and-pbmc_v3_chemistry" class="anchor"></a><strong>Section 3.2:</strong> Analysis of pbmc_NextGEM and pbmc_v3_chemistry</h3>
+<a href="#section-3-3-analysis-of-pbmc_nextgem-and-pbmc_v3_chemistry" class="anchor"></a><strong>Section 3.3:</strong> Analysis of pbmc_NextGEM and pbmc_v3_chemistry</h3>
 <p>pbmc_NextGEM dataset is the dataset made of <a href="https://support.10xgenomics.com/single-cell-gene-expression/datasets/3.1.0/5k_pbmc_protein_v3_nextgem">5k Peripheral blood mononuclear cells (PBMCs) from a healthy donor with cell surface proteins (Next GEM)</a> available at 10XGenomics repository.</p>
 <p>pbmc_v3_chemistry dataset is the dataset made of <a href="https://support.10xgenomics.com/single-cell-gene-expression/datasets/3.1.0/5k_pbmc_protein_v3">5k Peripheral blood mononuclear cells (PBMCs) from a healthy donor with cell surface proteins (v3 chemistry)</a> available at 10XGenomics repository.</p>
 <p>Both datasets were analysed in the following way:</p>
 <ul>
 <li><p>Low quality cells, i.e. those containing less that 100 genes were removed. All cells with a ribosomal gene percentage between 10 and 70% and a mitochondrial percentage between 1 and 20% were also retained.</p></li>
 <li><p>10K most variable genes were selected and out of them 5K most expressed genes were selected.</p></li>
-<li><p>Seurat [ref] was used to cluster the data using the first 5 PCA components.</p></li>
-<li><p>Cluster specific gene prioritization was done with COMET software [ref].</p></li>
+<li><p>Seurat [<a href="https://pubmed.ncbi.nlm.nih.gov/31178118/"><em>Stuart et al. 2019</em></a>] was used to cluster the data using the first 5 PCA components.</p></li>
+<li><p>Cluster specific gene prioritization was done with COMET software [<a href="https://pubmed.ncbi.nlm.nih.gov/31657111/"><em>Delaney et al. 2019</em></a>].</p></li>
 </ul>
 <div class="figure" style="text-align: center">
-<img src="img/fig2.png" alt="rCASC clustering. A) pbmc NextGEM 10 clusters. B) pbmc NextGEM CSS. C) pbmc v3 chemistry 8 clusters. C) pbmc v3 chemistry CSS" width="80%"><p class="caption">
-rCASC clustering. A) pbmc NextGEM 10 clusters. B) pbmc NextGEM CSS. C) pbmc v3 chemistry 8 clusters. C) pbmc v3 chemistry CSS
+<img src="img/fig2.png" alt="rCASC clustering. A) pbmc NextGEM 10 clusters. B) pbmc NextGEM CSS. C) pbmc v3 chemistry 8 clusters. D) pbmc v3 chemistry CSS" width="80%"><p class="caption">
+rCASC clustering. A) pbmc NextGEM 10 clusters. B) pbmc NextGEM CSS. C) pbmc v3 chemistry 8 clusters. D) pbmc v3 chemistry CSS
 </p>
 </div>
+<div style="page-break-after: always;"></div>
 <p>We detected a total of 10 clusters for pbmc_NextGEM, 7 of them with high CSS score, Fig. AB, and 8 clusters for pbmc_v3_chemistry, 6 of them with high CSS, Fig. CD.</p>
-<p>These datasets incorporate a panel of 31 TotalSeq™-B antibodies (BioLegend) that were used to assign the cell types for set1 and set2: CD3, CD4, CD8a, CD11b, CD14, CD15, CD16, CD19, CD20, CD25, CD27, CD28, CD34, CD45RA, CD45RO, CD56, CD62L, CD69, CD80, CD86, CD127, CD137, CD197, CD274, CD278, CD335, PD-1, HLA-DR, TIGIT, IgG1, IgG2a, IgG2b.</p>
+<p>These datasets incorporate a panel of 31 TotalSeq antibodies (BioLegend) that were used to assign the cell types for set1 and set2: CD3, CD4, CD8a, CD11b, CD14, CD15, CD16, CD19, CD20, CD25, CD27, CD28, CD34, CD45RA, CD45RO, CD56, CD62L, CD69, CD80, CD86, CD127, CD137, CD197, CD274, CD278, CD335, PD-1, HLA-DR, TIGIT, IgG1, IgG2a, IgG2b.</p>
 </div>
 <div id="analysis-of-set1-and-set2" class="section level3">
 <h3 class="hasAnchor">
 <a href="#analysis-of-set1-and-set2" class="anchor"></a>Analysis of set1 and set2</h3>
 <div class="figure" style="text-align: center">
-<img src="img/fig3.png" alt="Cell type assignment. A) classical monocytes. B) Natural Killer cells. C) pbmc_v3_chemistry 8 clusters. C) T regulatory cells. D) T memory cells. E) B-cells. F) naive T cells" width="80%"><p class="caption">
-Cell type assignment. A) classical monocytes. B) Natural Killer cells. C) pbmc_v3_chemistry 8 clusters. C) T regulatory cells. D) T memory cells. E) B-cells. F) naive T cells
+<img src="img/fig3.png" alt="Cell type assignment. A) classical monocytes. B) Natural Killer cells. C) pbmc\_v3\_chemistry 8 clusters. C) T-regulatory cells. D) T memory cells. E) B-cells. F) naive T cells" width="80%"><p class="caption">
+Cell type assignment. A) classical monocytes. B) Natural Killer cells. C) pbmc_v3_chemistry 8 clusters. C) T-regulatory cells. D) T memory cells. E) B-cells. F) naive T cells
 </p>
 </div>
 <p>In Fig. , are summarised the filters applied to the different combinations of Abs to obtain the subsets of cells we were interested in set1 and 2.</p>
@@ -191,6 +325,7 @@ rCASC clustering. A) set1 clusters. B) set1 CSS. C) set 2 clusters. D) set2 CSS
 Clusters cell type content. A) set1. B) set2.
 </p>
 </div>
+<div style="page-break-after: always;"></div>
 </div>
 </div>
   </div>
@@ -210,7 +345,7 @@ Clusters cell type content. A) set1. B) set2.
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
 
       </footer>

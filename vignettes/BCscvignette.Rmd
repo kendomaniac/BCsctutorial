@@ -21,7 +21,67 @@ knitr::opts_chunk$set(fig.pos = 'ht')
 ```
 
 
-## Section 1: Introduction
+## **Section 1**: Introduction
+
+### Section 1.1: single-cell RNAseq platforms
+
+#### Section 1.1.1: Smart-seq based scRNAseq
+
+#### Section 1.1.2: droplet scRNAseq
+
+#### Section 1.1.3: splitseq scRNAseq
+
+#### Section 1.1.4: Spatial transcriptomics scRNAseq
+
+### Section 1.2: rCASC, single-cell RNAseq data analysis suite
+
+### Section 1.2.1: scRNAseq QC
+
+#### Section 1.2.2: scRNAseq genes filtering
+
+#### Section 1.2.3: scRNAseq clustering methods
+
+#### Section 1.2.4: scRNAseq cluster-specific genes selection
+
+#### Section 1.2.5: topGO bioconductor package
+
+#### Section 1.3: Bray Curtis community ecology metric.
+
+Bray Curtis metric [[*Bray and Curtis 1957*](https://en.wikipedia.org/wiki/Bray%E2%80%93Curtis_dissimilarity)] is a statistic used to quantify the compositional dissimilarity between two different sites, based on counts at each site. As defined by Bray and Curtis, the index of dissimilarity is: 
+
+```{r fig.10, fig.cap="Bray Curtis formula.", echo=FALSE, eval=TRUE, out.width="100%", fig.align="center"}
+library(knitr)
+include_graphics('./img/fig10.png')
+```
+
+ Where C~ij~ is the sum of the lesser values for only those species in common between both sites. S~i~ and S~j~ are the total number of specimens counted at both sites. The index can be simplified to 1-2C/2 = 1-C when the abundances at each site are expressed as proportions, though the two forms of the equation only produce matching results when the total number of specimens counted at both sites are the same.
+
+The Bray-Curtis dissimilarity is always a number between 0 and 1. If 0, the two sites share all the same species; if 1, they don’t share any species.
+
+To calculate the Bray-Curtis dissimilarity between two sites it is assumed that both sites are the same size, either in area or volume (as is relevant to species counts). This is because the equation does not include any notion of space; it works only with the counts themselves. If the two sites are not the same size, it is necessary to adjust  counts before doing the Bray-Curtis calculation.
+
+BC is fequently used in microbiome characterization to represent the dissimilarity between pairs of samples [[*Larsen and Dai 2015*](https://pubmed.ncbi.nlm.nih.gov/26380076/)].
+
+Example of the use of BC [[*Glen in www.statisticshowto.com*](https://www.statisticshowto.com/bray-curtis-dissimilarity/)]
+Lets, consider two aquariums;
+
+    - Tank one: 6 goldfish, 7 guppies and 4 rainbow fish,
+    - Tank two: 10 goldfish and 6 rainbow fish.
+
+To calculate Bray-Curtis, let’s first calculate C~ij~ (the sum of only the lesser counts for each species found in both sites). Goldfish are found on both sites; the lesser count is 6. Guppies are only on one site, so they can’t be added in here. Rainbow fish, though, are on both, and the lesser count is 4.
+So C~ij~ = 6 + 4 = 10.
+
+S~i~ ( total number of specimens counted on site i) = 6 + 7 + 4 = 17, and
+S~j~ (total number of specimens counted on site j) = 10 + 6 = 16.
+
+So our BC~ij~ = 1 – (2 * 10) / (17 + 16), or 0.39.
+
+### Section 1.4: Aim of the thesis.
+
+scRNAseq is a very powerful technology, which however has still some critical points due to the high noise of the technology. A very important point, within the concept of reproducibility, is the ability to associate common clusters in independent experiments, e.g. biological replicates of the same experiment or scRNAseq from different patients with the same disease. In this thesis, I will evaluate the possibility to use Bray Curtis community ecology metric to identify common clusters in independent experiments.
+
+
+\newpage
 
 
 ## **Section 2**: Methods
@@ -52,6 +112,8 @@ We constructed a contaminated dataset in which a fraction of genes from setA wer
 library(knitr)
 include_graphics('./img/fig1.png')
 ```
+
+\newpage
 
 #### **Section 2.1.3**: Set1 and set2
 
@@ -302,11 +364,13 @@ write.table(set2, "set2.csv", sep=",", col.names=NA)
 
 ### **Section 3.1**: Evaluating BC metrics efficacy, as cluster association tool, by mean of cluster-specific GO terms.
 
+In this section we describe the results referring to the hypothesis that cell sub-popuplations 
+(clusters) can be assimilated to microbial communities and cluster-specific enriched GO terms are assimilated to microbial philum. Thus, Bray Curtis (BC) can be used to measure the dissimilarity between any cluster of an experiment and any cluster of the other experiment, to identify those clusters that are in common between different experiments. These data try to define the limits of BC in samples that are relatively similar to each other.
 
 SetA (500 cells), B (450 cells) and C (440 cells) were independently filtered to keep the 10k most variant genes. The retained genes were further filtered to keep the 5k most expressed genes.
-This passage was done to remove from each dataset the genes that, being little expressed or uniformly expressed, are going to have limited effect in clusters definition.
+This passage was done to remove from each dataset the genes that, being little expressed or uniformly expressed, are going to have limited impact in clusters definition.
 
-Each dataset was clustered with the clustering tool, within those available in rCASC [[*Alessandri et al.2019*](https://pubmed.ncbi.nlm.nih.gov/31494672/)], providing the best CSS score, which is a measure of cluster stability [[*Alessandri et al.2019*](https://pubmed.ncbi.nlm.nih.gov/31494672/)], Fig. \ref{fig:fig.6}.
+Each dataset was clustered with the clustering tool, within those available in rCASC [[*Alessandri et al. 2019*](https://pubmed.ncbi.nlm.nih.gov/31494672/)], providing the best CSS score, which is a measure of cluster stability [[*Alessandri et al. 2019*](https://pubmed.ncbi.nlm.nih.gov/31494672/)], Fig. \ref{fig:fig.6}.
 
 
 ```{r fig.6, fig.cap="rCASC clustering. A) SetA clustered by Griph. B) SetB clustered by SHARP. C) SetC clustered by SHARP. D) Association between clusters in the three datasets. E) Legend for the CSS", echo=FALSE, eval=TRUE, out.width="80%", fig.align="center"}
@@ -318,7 +382,7 @@ As shown in Fig. \ref{fig:fig.6}, the three datasets were characterized by high 
 
 \newpage
 
-#### **Section 3.1.1**: Evaluating BC metrics efficacy, as cluster association tool, by mean of cluster-specific GO terms.
+#### **Section 3.1.1**: Evaluating BC metrics efficacy, as cluster association tool, by mean of cluster-specific GO terms on setA and setA depleted of a 5, 10 and 15% randomly selected genes.
 
 ```{r, echo=F, eval=F}
 
@@ -334,19 +398,19 @@ include_graphics('./img/fig8.png')
 ```
 
 
-In Fig. \ref{fig:fig.8}, hierarchical clustering of BC distance suggest that BC is capturing similarity between the analyzed cell sets, even if part of the information is lost. This is however, not sufficient to say that BC is a good metric to detect common sub-populations of cells in different experiments.
+In Fig. \ref{fig:fig.8}, hierarchical clustering of BC distance suggests that BC is capturing similarity between the analyzed cell sets, even if part of the information is lost. This is however, not sufficient to say that BC is a good metric to detect common sub-populations of cells in different experiments.
 
 We extended this analysis generating, starting from setA, two random sets each one with 5% or 10% or 20%, 30, 40% and 50% random removal of genes.
 Each pair of data with the same percentage of genes removal was filtered to select the top 10k most varying genes. Each dataset was clustered with Griph and COMET was applied to identify cluster-specific genes. GO enrichment was performed and BC was used to associate clusters within the two datasets. This analysis was repeated 100 times. A threshold for BC, < 0.2, was used to define if two clusters are associated to each other.
 
-```{r fig.9, fig.cap="BC based association between clusters, comparing two set of samples where 50\\% of the genes where randomly removed. The assignement of identify between two clusters was done using the lowest BC score below the threshold that was set to 0.2, ovet 100 permutations. A) SetA with two different set of genes removal. B) setA1 and setA2 with two different set of genes removal.", echo=FALSE, eval=TRUE, out.width="60%", fig.align="center"}
+```{r fig.9, fig.cap="BC based association between clusters, comparing two set of samples where 50\\% of the genes where randomly removed. The assignement of identify between two clusters was done using the lowest BC score below the threshold that was set to 0.2, over 100 permutations. A) SetA with two different set of genes removal. B) setA1 and setA2 with two different set of genes removal.", echo=FALSE, eval=TRUE, out.width="60%", fig.align="center"}
 library(knitr)
 include_graphics('./img/fig9.png')
 ```
 
-This experiment demonstrated that, even with a large removal of genes, BC was able to associate correctly the clusters in the worst case 72 times over 100 permutation, Fig. \ref{fig:fig.9}A.
+This experiment demonstrated that, even with a large removal of genes, BC was able to associate correctly the clusters, i.e. in the worst case 72 times over 100 permutation, Fig. \ref{fig:fig.9}A.
 
-The experiment was repeated using the same approach, but on two independent set of cells, Fig. \ref{fig:fig.9}B, indicating that 50% random removal of genes strongly affect the detection efficacy of BC. 
+The experiment was repeated using the same approach, but on two independent set of cells with the same cell types of setA. In Fig. \ref{fig:fig.9}B only 50% random removal of genes was described since it is the one that most strongly affect the detection efficacy of BC. 
 
 
 \newpage
@@ -359,7 +423,7 @@ The experiment was repeated using the same approach, but on two independent set 
 
 ```
 
-
+We extended the above describe analysis comparing setA, setB and setC, which are coming from the same bulk experiment but are made of different cells and with a different composition of cell types, for their composition see Methods section. 
 Each dataset was analyzed with COMET to identify the subset of genes most characteristic of each cluster. Each of these set of genes was used to search for enriched GO terms using [*topGO Bioconductor package*](https://bioconductor.org/packages/release/bioc/html/topGO.html). Subsequently, we investigated if BC could provide an effecting tool to detect corresponding clusters in different experiment, Fig. \ref{fig:fig.7}.
 
 ```{r fig.7, fig.cap="Measuring cluster to cluster dissimilarity using Bray Curtis metric applied on cluster-specific enriched GO terms.", echo=FALSE, eval=TRUE, out.width="50%", fig.align="center"}
@@ -373,7 +437,11 @@ The results obtained trying to identify cluster to cluster association between d
 
 \newpage
 
-### **Section 3.2**: Creation of the contaminated dataset setAc30
+#### **Section 3.2**: Testing BC metrics efficacy, as cluster association tool, by mean of cluster-specific genes.
+
+In the previous experiments, we observed that GO terms associated to cluster-specific genes, in some cases were very few, thus limiting the strength of BC score in cluster association. Then, we decided to directly use BC score on cluster-specific genes. 
+
+#### **Section 3.2.1**: Creation of the contaminated dataset setAc30
 
 ```{r, echo=F, eval=F}
 
@@ -382,8 +450,9 @@ The results obtained trying to identify cluster to cluster association between d
 ```
 
 
-In the previous experiments, we observed that GO terms associated to cluster-specific genes, in some cases were very few limiting the strength of BC score in cluster association. Then, we decided to directly use BC score on cluster-specific genes. We investigated the efficacy of this approach comparing setA with respect to a setA contaminated by randomly selected genes from setC. Specifically, we have transformed setA contaminating it with 30% of the setC counts, randomly selected.
-In brief, descrivere come hai fatto la contaminazione
+We investigated the efficacy of BC score on cluster-specific genes comparing setA with respect to a setA contaminated by randomly selected genes from setC. Specifically, we have transformed setA contaminating it with 30% of the setC counts, randomly selected.
+
+**In brief, descrivere come hai fatto la contaminazione**
 
 ```{r, echo=F, eval=F}
 #inserire il codice utilizzato per generare il dataset sintetico
@@ -391,6 +460,8 @@ In brief, descrivere come hai fatto la contaminazione
 
 
 ```
+
+**parte ancora da completare
 
 ### **Section 3.3:** Analysis of pbmc_NextGEM and pbmc_v3_chemistry
 
