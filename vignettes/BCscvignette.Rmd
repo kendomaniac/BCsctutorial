@@ -322,7 +322,7 @@ As shown in Fig. \ref{fig:fig.6}, the three datasets were characterized by high 
 
 ```{r, echo=F, eval=F}
 
-# extracted from report report_02-10-2020
+# extracted from report report_02-10-2020, report_28-10-2020, report_03-11-2020
 
 ```
 
@@ -335,6 +335,18 @@ include_graphics('./img/fig8.png')
 
 
 In Fig. \ref{fig:fig.8}, hierarchical clustering of BC distance suggest that BC is capturing similarity between the analyzed cell sets, even if part of the information is lost. This is however, not sufficient to say that BC is a good metric to detect common sub-populations of cells in different experiments.
+
+We extended this analysis generating, starting from setA, two random sets each one with 5% or 10% or 20%, 30, 40% and 50% random removal of genes.
+Each pair of data with the same percentage of genes removal was filtered to select the top 10k most varying genes. Each dataset was clustered with Griph and COMET was applied to identify cluster-specific genes. GO enrichment was performed and BC was used to associate clusters within the two datasets. This analysis was repeated 100 times. A threshold for BC, < 0.2, was used to define if two clusters are associated to each other.
+
+```{r fig.9, fig.cap="BC based association between clusters, comparing two set of samples where 50\\% of the genes where randomly removed. The assignement of identify between two clusters was done using the lowest BC score below the threshold that was set to 0.2, ovet 100 permutations. A) SetA with two different set of genes removal. B) setA1 and setA2 with two different set of genes removal.", echo=FALSE, eval=TRUE, out.width="60%", fig.align="center"}
+library(knitr)
+include_graphics('./img/fig9.png')
+```
+
+This experiment demonstrated that, even with a large removal of genes, BC was able to associate correctly the clusters in the worst case 72 times over 100 permutation, Fig. \ref{fig:fig.9}A.
+
+The experiment was repeated using the same approach, but on two independent set of cells, Fig. \ref{fig:fig.9}B, indicating that 50% random removal of genes strongly affect the detection efficacy of BC. 
 
 
 \newpage
@@ -363,7 +375,14 @@ The results obtained trying to identify cluster to cluster association between d
 
 ### **Section 3.2**: Creation of the contaminated dataset setAc30
 
-We have transformed setA contaminating it with 30% of the setC counts, randomly selected.
+```{r, echo=F, eval=F}
+
+# extracted from report report_......
+
+```
+
+
+In the previous experiments, we observed that GO terms associated to cluster-specific genes, in some cases were very few limiting the strength of BC score in cluster association. Then, we decided to directly use BC score on cluster-specific genes. We investigated the efficacy of this approach comparing setA with respect to a setA contaminated by randomly selected genes from setC. Specifically, we have transformed setA contaminating it with 30% of the setC counts, randomly selected.
 In brief, descrivere come hai fatto la contaminazione
 
 ```{r, echo=F, eval=F}
